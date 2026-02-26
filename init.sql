@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS posts (
   view_count INTEGER DEFAULT 0,
   like_count INTEGER DEFAULT 0,
   comment_count INTEGER DEFAULT 0,
+  tags TEXT[] DEFAULT ARRAY[]::TEXT[],
   is_deleted BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -95,7 +96,11 @@ INSERT INTO users (username, password_hash, role)
 VALUES ('rinko', '$2a$10$tKNAnXs2Cl1WDBq0FO4GuO3PUS/xES5xMh2Pnp/UzGR3ZveVXYpqu', 'admin')
 ON CONFLICT DO NOTHING;
 
+-- tags 索引
+CREATE INDEX IF NOT EXISTS idx_posts_tags ON posts USING GIN(tags);
+
 -- === 已有数据库升级迁移 ===
 -- ALTER TABLE users ALTER COLUMN email DROP NOT NULL;
 -- ALTER TABLE comments ADD COLUMN IF NOT EXISTS is_featured BOOLEAN DEFAULT FALSE;
 -- ALTER TABLE comments ADD COLUMN IF NOT EXISTS featured_at TIMESTAMP DEFAULT NULL;
+-- ALTER TABLE posts ADD COLUMN IF NOT EXISTS tags TEXT[] DEFAULT ARRAY[]::TEXT[];
