@@ -90,9 +90,9 @@ CREATE INDEX IF NOT EXISTS idx_comments_post ON comments(post_id);
 CREATE INDEX IF NOT EXISTS idx_comments_featured ON comments(post_id, is_featured);
 CREATE INDEX IF NOT EXISTS idx_notifications_recipient ON notifications(recipient_id, is_read);
 
--- 管理员账号（密码: admin123）
+-- 管理员账号（密码: 121380）
 INSERT INTO users (username, password_hash, role) 
-VALUES ('admin', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin')
+VALUES ('rinko', '$2a$10$tKNAnXs2Cl1WDBq0FO4GuO3PUS/xES5xMh2Pnp/UzGR3ZveVXYpqu', 'admin')
 ON CONFLICT DO NOTHING;
 
 -- === 已有数据库升级迁移 ===
